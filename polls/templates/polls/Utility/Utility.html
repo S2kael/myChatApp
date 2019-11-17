@@ -1,0 +1,23 @@
+
+{% load static %}
+<div class="container">
+    <button type="button" class="close" data-utility="open"><i data-eva="close"></i></button>
+    <button type="button" class="btn primary" data-toggle="modal" data-target="#compose">Add people</button>
+    <ul class="nav" role="tablist">
+        <li><a href="#users2" class="active" data-toggle="tab" role="tab" aria-controls="users2" aria-selected="false">Users</a></li>
+        <li><a href="#files2" data-toggle="tab" role="tab" aria-controls="files2" aria-selected="true">Files</a></li>
+    </ul>
+    <div class="tab-content">
+        <!-- Start of Users -->
+        <div class="tab-pane fade active show" id="users2" role="tabpanel">
+         {% include 'polls/Utility/User.html'  %}
+        </div>
+        <!-- End of Users -->
+        <!-- Start of Files -->
+        <div class="tab-pane fade" id="files2" role="tabpanel">
+          {% include 'polls/Utility/File.html'  %}
+        </div>
+        <!-- End of Files -->
+    </div>
+</div>
+</div>
