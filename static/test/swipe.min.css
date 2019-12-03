@@ -1350,51 +1350,46 @@ a.dropdown-item {
     margin-top: 0
 }
 
-/* .chat .item .middle ul>li:nth-of-type(odd) {
-    -ms-flex-pack: justify;
-    justify-content: flex-start;
-    text-align: left
-} */
-
 .chat .item .middle ul>li.arrive{
     -ms-flex-pack: justify;
     justify-content: flex-start;
     text-align: left
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) img {
+
+.chat .item .middle ul>li.arrive img {
     margin-right: 15px;
     margin-left: 0;
     -ms-flex-order: 1;
     order: 1
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) .content {
+.chat .item .middle ul>li.arrive .content {
     -ms-flex-order: 2;
     order: 2
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) .bubble {
+.chat .item .middle ul>li.arrive .bubble {
     background: #f5f5f5
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) p {
+.chat .item .middle ul>li.arrive p {
     color: #bdbac2
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) .attachment .round {
+.chat .item .middle ul>li.arrive .attachment .round {
     background: #007bff
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) .attachment .round .eva {
+.chat .item .middle ul>li.arrive .attachment .round .eva {
     fill: #fff
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) .attachment h5 {
+.chat .item .middle ul>li.arrive .attachment h5 {
     color: #007bff
 }
 
-.chat .item .middle ul>li:nth-of-type(odd) .attachment span {
+.chat .item .middle ul>li.arrive .attachment span {
     color: #bdbac2
 }
 

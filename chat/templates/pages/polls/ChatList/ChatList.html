@@ -7,18 +7,18 @@
             <button type="submit" class="btn prepend"><i data-eva="search"></i></button>
         </form>
         <ul class="nav" role="tablist">
-            <li><a href="#direct" class="filter-btn active" data-toggle="tab" data-filter="direct">Friends</a></li>
-            <li><a href="#groups" class="filter-btn" data-toggle="tab" data-filter="groups">Groups</a></li>
+            <li><a href="#direct" class="filter-btn active" data-toggle="tab" data-filter="direct">Group</a></li>
+{#            <li><a href="#groups" class="filter-btn" data-toggle="tab" data-filter="groups">Groups</a></li>#}
         </ul>
     </div>
     <div class="middle">
         <h4>Chat</h4>
-        <button type="button" class="btn round" data-toggle="modal" data-target="#compose">
+        <button type="button" class="btn round" data-toggle="modal" data-target="#creategroup">
             <i data-eva="edit-2"></i></button>
         <hr>
         <ul class="nav discussions" role="tablist">
-            {% include 'polls/ChatList/FriendList.html'  %}
-            {% include 'polls/ChatList/GroupList.html'  %}
+            {% include 'pages/polls/ChatList/FriendList.html'  %}
+{#            {% include 'pages/polls/ChatList/GroupList.html'  %}#}
         </ul>
     </div>
 

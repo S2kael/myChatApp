@@ -1,453 +1,417 @@
 {% extends 'pages/polls/index.html' %}
-
 {% load static %}
 {% block contentChat %}
-<!-- Start of Chat Room -->
-<div class="tab-pane fade" id="chat1" role="tabpanel">
-    <div class="item">
-        <div class="content">
-            <div class="container">
-                <div class="top">
-                    <div class="headline">
-                        <img src={% static 'test/avatar-male-3.jpg'%} alt="hình đại diện">
-                        <div class="content">
-                            <h5>
-                                <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">{{ room_name_json }}</font>
-                                </font>
-                            </h5>
+    <!-- Start of Chat Room -->
+    <div class="tab-pane fade show active" id="chat1" role="tabpanel">
+        <div class="item">
+            <div class="content">
+                <div class="container">
+                    <div class="top">
+                        <div class="headline">
+                            <img src={% static 'test/avatar-male-3.jpg' %} alt="hình đại diện">
+                            <div class="content">
+                                <h5 id="roomname">
+
+                                </h5>
+                            </div>
                         </div>
-                    </div>
-                    <ul>
-                        <li><button type="button" class="btn"><i class="eva-hover"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24"
-                                        class="eva eva-video eva-animation eva-icon-hover-pulse">
+                        <ul>
+                            <li>
+                                <button type="button" class="btn"><i class="eva-hover">
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24"
+                                            class="eva eva-video eva-animation eva-icon-hover-pulse">
                                         <g data-name="Layer 2">
                                             <g data-name="video">
                                                 <rect width="24" height="24" opacity="0"></rect>
                                                 <path
-                                                    d="M21 7.15a1.7 1.7 0 0 0-1.85.3l-2.15 2V8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-1.45l2.16 2a1.74 1.74 0 0 0 1.16.45 1.68 1.68 0 0 0 .69-.15 1.6 1.6 0 0 0 1-1.48V8.63A1.6 1.6 0 0 0 21 7.15z">
+                                                        d="M21 7.15a1.7 1.7 0 0 0-1.85.3l-2.15 2V8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-1.45l2.16 2a1.74 1.74 0 0 0 1.16.45 1.68 1.68 0 0 0 .69-.15 1.6 1.6 0 0 0 1-1.48V8.63A1.6 1.6 0 0 0 21 7.15z">
                                                 </path>
                                             </g>
                                         </g>
-                                    </svg></i></button></li>
-                        <li><button type="button" class="btn"><i class="eva-hover"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24"
-                                        class="eva eva-phone eva-animation eva-icon-hover-pulse">
+                                    </svg>
+                                </i></button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn"><i class="eva-hover">
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24"
+                                            class="eva eva-phone eva-animation eva-icon-hover-pulse">
                                         <g data-name="Layer 2">
                                             <g data-name="phone">
                                                 <rect width="24" height="24" opacity="0"></rect>
                                                 <path
-                                                    d="M17.4 22A15.42 15.42 0 0 1 2 6.6 4.6 4.6 0 0 1 6.6 2a3.94 3.94 0 0 1 .77.07 3.79 3.79 0 0 1 .72.18 1 1 0 0 1 .65.75l1.37 6a1 1 0 0 1-.26.92c-.13.14-.14.15-1.37.79a9.91 9.91 0 0 0 4.87 4.89c.65-1.24.66-1.25.8-1.38a1 1 0 0 1 .92-.26l6 1.37a1 1 0 0 1 .72.65 4.34 4.34 0 0 1 .19.73 4.77 4.77 0 0 1 .06.76A4.6 4.6 0 0 1 17.4 22z">
+                                                        d="M17.4 22A15.42 15.42 0 0 1 2 6.6 4.6 4.6 0 0 1 6.6 2a3.94 3.94 0 0 1 .77.07 3.79 3.79 0 0 1 .72.18 1 1 0 0 1 .65.75l1.37 6a1 1 0 0 1-.26.92c-.13.14-.14.15-1.37.79a9.91 9.91 0 0 0 4.87 4.89c.65-1.24.66-1.25.8-1.38a1 1 0 0 1 .92-.26l6 1.37a1 1 0 0 1 .72.65 4.34 4.34 0 0 1 .19.73 4.77 4.77 0 0 1 .06.76A4.6 4.6 0 0 1 17.4 22z">
                                                 </path>
                                             </g>
                                         </g>
-                                    </svg></i></button></li>
-                        <li><button type="button" class="btn" data-toggle="modal"
-                                data-target="#compose"><i class="eva-hover"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24"
-                                        class="eva eva-person-add eva-animation eva-icon-hover-pulse">
+                                    </svg>
+                                </i></button>
+                            </li>
+                            <li>
+{#                                data-target="#compose"#}
+                                <button type="button" class="btn" data-toggle="modal"
+                                        ><i class="eva-hover">
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24"
+                                            class="eva eva-person-add eva-animation eva-icon-hover-pulse">
                                         <g data-name="Layer 2">
                                             <g data-name="person-add">
                                                 <rect width="24" height="24" opacity="0"></rect>
                                                 <path
-                                                    d="M21 6h-1V5a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0V8h1a1 1 0 0 0 0-2z">
+                                                        d="M21 6h-1V5a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0V8h1a1 1 0 0 0 0-2z">
                                                 </path>
                                                 <path d="M10 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"></path>
                                                 <path
-                                                    d="M16 21a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1">
+                                                        d="M16 21a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1">
                                                 </path>
                                             </g>
                                         </g>
-                                    </svg></i></button></li>
-                        <li><button type="button" class="btn" data-utility="open"><i
-                                    class="eva-hover"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                        height="24" viewBox="0 0 24 24"
-                                        class="eva eva-info eva-animation eva-icon-hover-pulse">
+                                    </svg>
+                                </i></button>
+                            </li>
+                            <li>
+{#                                data-utility="open"#}
+                                <button type="button" class="btn" ><i
+                                        class="eva-hover">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24"
+                                         class="eva eva-info eva-animation eva-icon-hover-pulse">
                                         <g data-name="Layer 2">
                                             <g data-name="info">
                                                 <rect width="24" height="24"
-                                                    transform="rotate(180 12 12)" opacity="0"></rect>
+                                                      transform="rotate(180 12 12)" opacity="0"></rect>
                                                 <path
-                                                    d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14a1 1 0 0 1-2 0v-5a1 1 0 0 1 2 0zm-1-7a1 1 0 1 1 1-1 1 1 0 0 1-1 1z">
+                                                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14a1 1 0 0 1-2 0v-5a1 1 0 0 1 2 0zm-1-7a1 1 0 1 1 1-1 1 1 0 0 1-1 1z">
                                                 </path>
                                             </g>
                                         </g>
-                                    </svg></i></button></li>
-                        <li><button type="button" class="btn round" data-chat="open"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" class="eva eva-arrow-ios-back">
-                                    <g data-name="Layer 2">
-                                        <g data-name="arrow-ios-back">
-                                            <rect width="24" height="24" transform="rotate(90 12 12)"
-                                                opacity="0"></rect>
-                                            <path
-                                                d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z">
-                                            </path>
+                                    </svg>
+                                </i></button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn round" data-chat="open">
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" class="eva eva-arrow-ios-back">
+                                        <g data-name="Layer 2">
+                                            <g data-name="arrow-ios-back">
+                                                <rect width="24" height="24" transform="rotate(90 12 12)"
+                                                      opacity="0"></rect>
+                                                <path
+                                                        d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z">
+                                                </path>
+                                            </g>
                                         </g>
-                                    </g>
-                                </svg></button></li>
-                        <li><button type="button" class="btn" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="eva-hover"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24"
-                                        class="eva eva-more-vertical eva-animation eva-icon-hover-pulse">
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="btn" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><i class="eva-hover">
+                                    <svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24"
+                                            class="eva eva-more-vertical eva-animation eva-icon-hover-pulse">
                                         <g data-name="Layer 2">
                                             <g data-name="more-vertical">
                                                 <rect width="24" height="24"
-                                                    transform="rotate(-90 12 12)" opacity="0"></rect>
+                                                      transform="rotate(-90 12 12)" opacity="0"></rect>
                                                 <circle cx="12" cy="12" r="2"></circle>
                                                 <circle cx="12" cy="5" r="2"></circle>
                                                 <circle cx="12" cy="19" r="2"></circle>
                                             </g>
                                         </g>
-                                    </svg></i></button>
-                            <div class="dropdown-menu">
-                                <button type="button" class="dropdown-item"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" class="eva eva-video">
-                                        <g data-name="Layer 2">
-                                            <g data-name="video">
-                                                <rect width="24" height="24" opacity="0"></rect>
-                                                <path
-                                                    d="M21 7.15a1.7 1.7 0 0 0-1.85.3l-2.15 2V8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-1.45l2.16 2a1.74 1.74 0 0 0 1.16.45 1.68 1.68 0 0 0 .69-.15 1.6 1.6 0 0 0 1-1.48V8.63A1.6 1.6 0 0 0 21 7.15z">
-                                                </path>
-                                            </g>
-                                        </g>
                                     </svg>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">Cuộc gọi video</font>
-                                    </font>
-                                </button>
-                                <button type="button" class="dropdown-item"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" class="eva eva-phone">
-                                        <g data-name="Layer 2">
-                                            <g data-name="phone">
-                                                <rect width="24" height="24" opacity="0"></rect>
-                                                <path
-                                                    d="M17.4 22A15.42 15.42 0 0 1 2 6.6 4.6 4.6 0 0 1 6.6 2a3.94 3.94 0 0 1 .77.07 3.79 3.79 0 0 1 .72.18 1 1 0 0 1 .65.75l1.37 6a1 1 0 0 1-.26.92c-.13.14-.14.15-1.37.79a9.91 9.91 0 0 0 4.87 4.89c.65-1.24.66-1.25.8-1.38a1 1 0 0 1 .92-.26l6 1.37a1 1 0 0 1 .72.65 4.34 4.34 0 0 1 .19.73 4.77 4.77 0 0 1 .06.76A4.6 4.6 0 0 1 17.4 22z">
-                                                </path>
+                                </i></button>
+                                <div class="dropdown-menu">
+                                    <button type="button" class="dropdown-item">
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" class="eva eva-video">
+                                            <g data-name="Layer 2">
+                                                <g data-name="video">
+                                                    <rect width="24" height="24" opacity="0"></rect>
+                                                    <path
+                                                            d="M21 7.15a1.7 1.7 0 0 0-1.85.3l-2.15 2V8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-1.45l2.16 2a1.74 1.74 0 0 0 1.16.45 1.68 1.68 0 0 0 .69-.15 1.6 1.6 0 0 0 1-1.48V8.63A1.6 1.6 0 0 0 21 7.15z">
+                                                    </path>
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">Cuộc gọi thoại</font>
-                                    </font>
-                                </button>
-                                <button type="button" class="dropdown-item" data-toggle="modal"
-                                    data-target="#compose"><svg xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24" viewBox="0 0 24 24"
-                                        class="eva eva-person-add">
-                                        <g data-name="Layer 2">
-                                            <g data-name="person-add">
-                                                <rect width="24" height="24" opacity="0"></rect>
-                                                <path
-                                                    d="M21 6h-1V5a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0V8h1a1 1 0 0 0 0-2z">
-                                                </path>
-                                                <path d="M10 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"></path>
-                                                <path
-                                                    d="M16 21a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1">
-                                                </path>
+                                        </svg>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">Cuộc gọi video</font>
+                                        </font>
+                                    </button>
+                                    <button type="button" class="dropdown-item">
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" class="eva eva-phone">
+                                            <g data-name="Layer 2">
+                                                <g data-name="phone">
+                                                    <rect width="24" height="24" opacity="0"></rect>
+                                                    <path
+                                                            d="M17.4 22A15.42 15.42 0 0 1 2 6.6 4.6 4.6 0 0 1 6.6 2a3.94 3.94 0 0 1 .77.07 3.79 3.79 0 0 1 .72.18 1 1 0 0 1 .65.75l1.37 6a1 1 0 0 1-.26.92c-.13.14-.14.15-1.37.79a9.91 9.91 0 0 0 4.87 4.89c.65-1.24.66-1.25.8-1.38a1 1 0 0 1 .92-.26l6 1.37a1 1 0 0 1 .72.65 4.34 4.34 0 0 1 .19.73 4.77 4.77 0 0 1 .06.76A4.6 4.6 0 0 1 17.4 22z">
+                                                    </path>
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">Thêm người</font>
-                                    </font>
-                                </button>
-                                <button type="button" class="dropdown-item" data-utility="open"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" class="eva eva-info">
-                                        <g data-name="Layer 2">
-                                            <g data-name="info">
-                                                <rect width="24" height="24"
-                                                    transform="rotate(180 12 12)" opacity="0"></rect>
-                                                <path
-                                                    d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14a1 1 0 0 1-2 0v-5a1 1 0 0 1 2 0zm-1-7a1 1 0 1 1 1-1 1 1 0 0 1-1 1z">
-                                                </path>
+                                        </svg>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">Cuộc gọi thoại</font>
+                                        </font>
+                                    </button>
+                                    {#data-target="#compose"#}
+                                    <button type="button" class="dropdown-item" data-toggle="modal">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             width="24" height="24" viewBox="0 0 24 24"
+                                             class="eva eva-person-add">
+                                            <g data-name="Layer 2">
+                                                <g data-name="person-add">
+                                                    <rect width="24" height="24" opacity="0"></rect>
+                                                    <path
+                                                            d="M21 6h-1V5a1 1 0 0 0-2 0v1h-1a1 1 0 0 0 0 2h1v1a1 1 0 0 0 2 0V8h1a1 1 0 0 0 0-2z">
+                                                    </path>
+                                                    <path d="M10 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"></path>
+                                                    <path
+                                                            d="M16 21a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1">
+                                                    </path>
+                                                </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">Thông tin</font>
-                                    </font>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
+                                        </svg>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">Thêm người</font>
+                                        </font>
+                                    </button>
+{#                                    data-utility="open"#}
+                                    <button type="button" class="dropdown-item" >
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" class="eva eva-info">
+                                            <g data-name="Layer 2">
+                                                <g data-name="info">
+                                                    <rect width="24" height="24"
+                                                          transform="rotate(180 12 12)" opacity="0"></rect>
+                                                    <path
+                                                            d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14a1 1 0 0 1-2 0v-5a1 1 0 0 1 2 0zm-1-7a1 1 0 1 1 1-1 1 1 0 0 1-1 1z">
+                                                    </path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">Thông tin</font>
+                                        </font>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="middle" id="scroll">
+                <div class="middle" id="scroll">
+                    <div class="container">
+                        <ul id="messages">
+
+                        </ul>
+                    </div>
+                </div>
                 <div class="container">
-                    <ul id="messages">
-                        <li class="arrive">
-                            <img src="{% static 'test/avatar-male-3.jpg'%}" alt="hình đại diện">
-                            <div class="content">
-                                <div class="message">
-                                    <div class="bubble">
-                                        <p>
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Cuộc sống mà</font>
-                                            </font>
-                                        </p>
-                                    </div>
-                                </div>
-                                <span>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">07:30</font>
-                                    </font>
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <img src="{% static 'test/avatar-male-3.jpg'%}" alt="hình đại diện">
-                            <div class="content">
-                                <div class="message">
-                                    <div class="bubble">
-                                        <div class="attachment">
-                                            <a href="https://grayshift.io/themes/swipe/?fbclid=IwAR2jjKi5kJBi5AAsdnR2SJsGdjKmkP3zXREKgbWW6RBC6ieb05WjrZbCUrk#"
-                                                class="round"><svg xmlns="http://www.w3.org/2000/svg"
-                                                    width="24" height="24" viewBox="0 0 24 24"
-                                                    class="eva eva-file-text">
-                                                    <g data-name="Layer 2">
-                                                        <g data-name="file-text">
-                                                            <rect width="24" height="24" opacity="0">
-                                                            </rect>
-                                                            <path
-                                                                d="M19.74 7.33l-4.44-5a1 1 0 0 0-.74-.33h-8A2.53 2.53 0 0 0 4 4.5v15A2.53 2.53 0 0 0 6.56 22h10.88A2.53 2.53 0 0 0 20 19.5V8a1 1 0 0 0-.26-.67zM9 12h3a1 1 0 0 1 0 2H9a1 1 0 0 1 0-2zm6 6H9a1 1 0 0 1 0-2h6a1 1 0 0 1 0 2zm-.29-10a.79.79 0 0 1-.71-.85V4l3.74 4z">
-                                                            </path>
-                                                        </g>
-                                                    </g>
-                                                </svg></a>
-                                            <div class="meta">
-                                                <a
-                                                    href="https://grayshift.io/themes/swipe/?fbclid=IwAR2jjKi5kJBi5AAsdnR2SJsGdjKmkP3zXREKgbWW6RBC6ieb05WjrZbCUrk#">
-                                                    <h5>
-                                                        <font style="vertical-align: inherit;">
-                                                            <font style="vertical-align: inherit;">
-                                                                build-plugins.js</font>
-                                                        </font>
-                                                    </h5>
-                                                </a>
-                                                <span>
-                                                    <font style="vertical-align: inherit;">
-                                                        <font style="vertical-align: inherit;">3kb
-                                                        </font>
-                                                    </font>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <span>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">01:03 chiều</font>
-                                    </font>
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="content">
-                                <div class="message">
-                                    <div class="bubble">
-                                        <p>
-                                            <font style="vertical-align: inherit;">
-                                                <font style="vertical-align: inherit;">Nó được phổ biến
-                                                    vào những năm 1960.</font>
-                                            </font>
-                                        </p>
-                                    </div>
-                                </div>
-                                <span>
-                                    <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">05:42 chiều</font>
-                                    </font>
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="container">
-                <div class="bottom">
-                    <div class="form">
+                    <div class="bottom">
+                        <div class="form">
                         <textarea class="form-control" id="chat-message-input" placeholder="Type message..."
-                            rows="1"></textarea>
-                        <button type="button" class="btn prepend" id="chat-message-submit"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" class="eva eva-paper-plane">
-                                <g data-name="Layer 2">
-                                    <g data-name="paper-plane">
-                                        <rect width="24" height="24" opacity="0"></rect>
-                                        <path
-                                            d="M21 4a1.31 1.31 0 0 0-.06-.27v-.09a1 1 0 0 0-.2-.3 1 1 0 0 0-.29-.19h-.09a.86.86 0 0 0-.31-.15H20a1 1 0 0 0-.3 0l-18 6a1 1 0 0 0 0 1.9l8.53 2.84 2.84 8.53a1 1 0 0 0 1.9 0l6-18A1 1 0 0 0 21 4zm-4.7 2.29l-5.57 5.57L5.16 10zM14 18.84l-1.86-5.57 5.57-5.57z">
-                                        </path>
+                                  rows="1"></textarea>
+                            <button type="button" class="btn prepend" id="chat-message-submit">
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" class="eva eva-paper-plane">
+                                    <g data-name="Layer 2">
+                                        <g data-name="paper-plane">
+                                            <rect width="24" height="24" opacity="0"></rect>
+                                            <path
+                                                    d="M21 4a1.31 1.31 0 0 0-.06-.27v-.09a1 1 0 0 0-.2-.3 1 1 0 0 0-.29-.19h-.09a.86.86 0 0 0-.31-.15H20a1 1 0 0 0-.3 0l-18 6a1 1 0 0 0 0 1.9l8.53 2.84 2.84 8.53a1 1 0 0 0 1.9 0l6-18A1 1 0 0 0 21 4zm-4.7 2.29l-5.57 5.57L5.16 10zM14 18.84l-1.86-5.57 5.57-5.57z">
+                                            </path>
+                                        </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </button>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Start of Utility -->
-        <div class="utility">
-            <div class="container">
-                <button type="button" class="close" data-utility="open"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        class="eva eva-close">
-                        <g data-name="Layer 2">
-                            <g data-name="close">
-                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0">
-                                </rect>
-                                <path
-                                    d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z">
-                                </path>
-                            </g>
-                        </g>
-                    </svg></button>
-                <button type="button" class="btn primary" data-toggle="modal" data-target="#compose">
-                    <font style="vertical-align: inherit;">
-                        <font style="vertical-align: inherit;">Thêm người</font>
-                    </font>
-                </button>
-                <ul class="nav" role="tablist">
-                    <li>
-                        <a href="https://grayshift.io/themes/swipe/?fbclid=IwAR2jjKi5kJBi5AAsdnR2SJsGdjKmkP3zXREKgbWW6RBC6ieb05WjrZbCUrk#users"
-                            class="active" data-toggle="tab" role="tab" aria-controls="users"
-                            aria-selected="true">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Người dùng</font>
-                            </font>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://grayshift.io/themes/swipe/?fbclid=IwAR2jjKi5kJBi5AAsdnR2SJsGdjKmkP3zXREKgbWW6RBC6ieb05WjrZbCUrk#files"
-                            data-toggle="tab" role="tab" aria-controls="files" aria-selected="false"
-                            class="">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">Các tập tin</font>
-                            </font>
-                        </a>
-                    </li>
-                </ul>
+            <!-- Start of Utility -->
+            <div class="utility">
+                {% include 'pages/polls/Utility/Utility.html'  %}
             </div>
+            <!-- End of Utility -->
         </div>
-        <!-- End of Utility -->
     </div>
-</div>
-<!-- End of Chat Room -->
+    <!-- End of Chat Room -->
 {% endblock %}
 
 {% block js %}
-<script>
-    let new_connect = true;
+    <script>
+        let new_connect = true;
 
-    function renderTime(timestamp) {
-        let prefix = "";
-        const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime())/60000);
-        if (timeDiff < 1) { // less than one minute ago
-            prefix = 'just now...';
-        } else if (timeDiff < 60 && timeDiff > 1) { // less than sixty minutes ago
-            prefix = `${timeDiff} minutes ago`;
-        } else if (timeDiff < 24*60 && timeDiff > 60) { // less than 24 hours ago
-            prefix = `${Math.round(timeDiff/60)} hours ago`;
-        } else if (timeDiff < 31*24*60 && timeDiff > 24*60) { // less than 7 days ago
-            prefix = `${Math.round(timeDiff/(60*24))} days ago`;
-        } else {
-            prefix = `${new Date(timestamp)}`;
-        }
-        return prefix
-    }
-    function connect(){
-        let roomName = {{ room_name_json }};
-        console.log(roomName);
-
-        let chatSocket = new WebSocket(
-            'ws://' + window.location.host +
-            '/ws/chat/' + roomName + '/');
-
-        chatSocket.onopen  = function(){
-            if (new_connect) {
-                fetch_messages();
+        function renderTime(timestamp) {
+            let prefix = "";
+            const timeDiff = Math.round((new Date().getTime() - new Date(timestamp).getTime()) / 60000);
+            if (timeDiff < 1) { // less than one minute ago
+                prefix = 'just now...';
+            } else if (timeDiff < 60 && timeDiff > 1) { // less than sixty minutes ago
+                prefix = `${timeDiff} minutes ago`;
+            } else if (timeDiff < 24 * 60 && timeDiff > 60) { // less than 24 hours ago
+                prefix = `${Math.round(timeDiff / 60)} hours ago`;
+            } else if (timeDiff < 31 * 24 * 60 && timeDiff > 24 * 60) { // less than 7 days ago
+                prefix = `${Math.round(timeDiff / (60 * 24))} days ago`;
+            } else {
+                prefix = `${new Date(timestamp)}`;
             }
-        }
-        chatSocket.onmessage = function(e) {
-            let data = JSON.parse(e.data);
-            let message = data['message']['content'];
-            console.log(message);
-            let messagebox = "<li>"
-             messagebox +=   "<img src=\"{% static 'test/avatar-male-3.jpg'%}\" alt=\"hình đại diện\">";
-             messagebox +=   "<div class=\"content\">";
-             messagebox +=   "<div class=\"message\">"
-             messagebox +=   "<div class=\"bubble\">";
-             let messages = message.split("\n");
-             messages.slice(0,messages.length);
-             messages.forEach(m => {
-                 messagebox +=   "<p>";
-                 messagebox +=    m;
-                 messagebox +=   "</p>";
-                 }
-             );
-             messagebox +=   "</div>";
-             messagebox +=   "</div>";
-             messagebox +=   "<span>";
-             messagebox +=   renderTime(data['message']['created_at']);
-             messagebox +=   "</span>";
-             messagebox +=   "</div>";
-             messagebox +=   "</div>";
-             let html = $('#messages').html();
-             html += messagebox;
-             $('#messages').html(html)
-        };
-
-        chatSocket.onclose = function(e) {
-            console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
-            new_connect = false;
-            setTimeout(function() {
-              connect();
-            }, 1000);
-        };
-
-        chatSocket.onerror = function(err) {
-            console.error('Socket encountered error: ', err.message, 'Closing socket');
-            chatSocket.close();
-        };
-
-        $('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13 && !e.shiftKey) {  // enter, return
-                $('#chat-message-submit').click();
-            }
-        };
-
-        function fetch_messages(){
-            chatSocket.send(JSON.stringify({
-                'command': "fetch_messages",
-                'group': roomName
-            }));
+            return prefix
         }
 
-        $('#chat-message-submit').click(function() {
-            let messageInputDom = document.querySelector('#chat-message-input');
-            let content = messageInputDom.value;
-            console.log(content);
-            let message = {
-                group: roomName,
-                content: content
-            }
-            chatSocket.send(JSON.stringify({
-                'message': message,
-                'command': "new_message",
-            }));
+        function connect() {
+            let roomName = {{ room_name_json }};
 
-            messageInputDom.value = '';
+            document.querySelector('#roomname').innerHTML = roomName;
+
+            let s = "a#"+roomName+".direct";
+            $(s).addClass('active');
+            $(s).attr('aria-selected', true);
+
+            let chatSocket = new WebSocket(
+                'ws://' + window.location.host +
+                '/ws/chat/' + roomName + '/');
+
+            chatSocket.onopen = function () {
+                if (new_connect) {
+                    fetch_messages();
+                }
+            }
+
+            chatSocket.onmessage = function (e) {
+                let data = JSON.parse(e.data);
+                if (data['message']['author'] != "") {
+                    renderChat(data);
+                }
+                var objDiv = document.getElementById("scroll");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            };
+
+            chatSocket.onclose = function (e) {
+                console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+                new_connect = false;
+                setTimeout(function () {
+                    connect();
+                }, 100);
+            };
+
+            chatSocket.onerror = function (err) {
+                console.error('Socket encountered error: ', err.message, 'Closing socket');
+                chatSocket.close();
+            };
+
+            $('#chat-message-input').focus();
+            document.querySelector('#chat-message-input').onkeyup = function (e) {
+                if (e.keyCode === 13 && !e.shiftKey) {  // enter, return
+                    $('#chat-message-submit').click();
+                }
+            };
+
+            function fetch_messages() {
+                chatSocket.send(JSON.stringify({
+                    command: "fetch_messages",
+                    group: roomName
+                }));
+            }
+
+            $('#chat-message-submit').click(function () {
+                let messageInputDom = document.querySelector('#chat-message-input');
+                let content = messageInputDom.value;
+                let validate = true;
+                if (content == null || content == "" || content == "\n") {
+                    validate=false;
+                }
+                if (content == "\n"){
+                    messageInputDom.value = '';
+                }
+                if (validate) {
+                    let message = {
+                        group: roomName,
+                        content: content,
+                        author: "{{ email }}"
+                    }
+                    chatSocket.send(JSON.stringify({
+                        message: message,
+                        command: "new_message",
+                    }));
+                    messageInputDom.value = '';
+                }
+            });
+        }
+        if (localStorage.getItem('dark') == null){
+            localStorage.setItem('dark',false);
+        }
+
+
+        if (localStorage.getItem('dark') == 'true'){
+            $('head').append('<link href="/static/test/dark.min.css" id="dark" type="text/css" rel="stylesheet">');
+        }
+        $(document).ready(function () {
+            clicked = !localStorage.getItem('dark');
+            $(".mode").click(function () {
+                if (clicked) {
+                    $('head').append('<link href="/static/test/dark.min.css" id="dark" type="text/css" rel="stylesheet">');
+                    clicked = !1
+                    localStorage.setItem('dark',true);
+                } else {
+                    $('#dark').remove();
+                    clicked = !0
+                    localStorage.setItem('dark',false);
+                }
+            })
         });
-    }
-    connect();
-</script>
+
+        function renderChat(data){
+            let message = data['message']['content'];
+            let author = data['message']['author'];
+            let li = document.createElement("li");
+            let img = document.createElement("img");
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
+            let div3 = document.createElement("div");
+            if (author != "{{email}}") {
+                li.classList.add("arrive");
+            }
+            div3.classList.add("bubble");
+            div2.classList.add("message");
+            div1.classList.add("content");
+            if (author != "{{email}}") {
+                img.src = "{% static 'test/avatar-male-3.jpg'%}";
+            }else{
+                img.src = "{% static 'test/avatar-male-1.jpg'%}";
+            }
+
+            img.alt = "avatar";
+            img.title = author;
+            li.appendChild(img);
+            let messages = message.split("\n");
+            messages.slice(0, messages.length);
+            messages.forEach(m => {
+                    let p = document.createElement("p");
+                    p.innerHTML = m;
+                    div3.appendChild(p);
+                }
+            );
+            div2.appendChild(div3);
+            div1.appendChild(div2);
+            let span = document.createElement("span");
+            span.innerHTML=renderTime(data['message']['created_at']);
+            div1.appendChild(span);
+            li.appendChild(div1);
+            $('#messages').append(li);
+        }
+
+        connect();
+    </script>
 {% endblock %}

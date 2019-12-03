@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng nhập</title>
+    <base href="">
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
+</head>
+
+<body>
+    <form role="form" action="" method="post">
+        <div class="login-box">
+            <div>
+                <h1>Đăng nhập</h1>
+                {% csrf_token %}
+                <div class="textbox">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="textbox">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu">
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button>
+            </div>
+            <div class="container signin">
+                <p>Does not have an account? <a href={% url 'register' %}>Register</a>.</p>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

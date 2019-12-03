@@ -1,3 +1,6 @@
+from datetime import datetime
+import uuid
+
 from django.contrib.auth import get_user_model
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
@@ -9,27 +12,39 @@ User = get_user_model()
 
 class ChatConsumer(WebsocketConsumer):
 
-    lastMessage = 0;
+    lastMessageId = 0;
 
     def fetch_messages(self, data):
         messages = GroupMessage.last_30_messages(data['group'])
-        messages = list(reversed(messages))
-        content = self.messages_to_json(messages)
-        self.send_message(content)
+        self.lastMessageId = GroupMessage.last_messages(data['group'])[0].id
+        if len(messages) != 0:
+            messages = list(reversed(messages))
+            content = self.messages_to_json(messages)
+            self.send_message(content)
+        else:
+            GroupMessage.objects.create(
+                groupid=data['group'],
+                id=1,
+                content='None',
+                author='',
+                created_at=datetime.now()
+            )
+
 
     def new_message(self, data):
         groupid = data['message']['group']
-        self.lastMessage = self.lastMessage + 1
+        self.lastMessageId = self.lastMessageId + 1
         message = GroupMessage.objects.create(
             groupid=groupid,
-            id=self.lastMessage,
-            content=data['message']['content']
+            id=self.lastMessageId,
+            content=data['message']['content'],
+            author=uuid.UUID(data['message']['author']),
+            created_at=datetime.now()
         )
         content = {
             'command': "new_message",
             'message': self.message_to_json(message)
         }
-        print(data['command'] + ' function')
         return self.send_chat_message(content)
 
     def messages_to_json(self, messages):
@@ -41,11 +56,10 @@ class ChatConsumer(WebsocketConsumer):
         return result
 
     def message_to_json(self, message):
-        self.lastMessage = message.id
         return {
             'groupid': message.groupid,
             'id': message.id,
-            'author': message.author,
+            'author': str(message.author),
             'content': message.content,
             'attach': message.attach,
             'image': message.image,
@@ -86,7 +100,6 @@ class ChatConsumer(WebsocketConsumer):
                 'message': message
             }
         )
-        print(message)
 
     def send_message(self, messages):
         for message in messages:
