@@ -20,7 +20,7 @@ class ChatConsumer(WebsocketConsumer):
         if len(messages) != 0:
             messages = list(reversed(messages))
             content = self.messages_to_json(messages)
-            self.send_message(content)
+            self.send_messages(content)
         else:
             GroupMessage.objects.create(
                 groupid=data['group'],
@@ -101,9 +101,14 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-    def send_message(self, messages):
+    def send_messages(self, messages):
+        # self.send(text_data=json.dumps(messages))
         for message in messages:
             self.send(text_data=json.dumps(message))
+        status = {
+            "ready": True
+        }
+        self.send(text_data=json.dumps(status))
 
     def chat_message(self, event):
         message = event['message']

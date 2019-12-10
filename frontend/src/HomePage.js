@@ -50,7 +50,7 @@ function HomePage(props) {
         {/* Start of Navigation */}
         <nav className="navigation">
             <div className="container">
-                <a href="#" className="logo" rel="home"><img src="./asset/images/logo.png" alt="logo" /></a>
+                <a className="logo" rel="home"><img src="./asset/images/logo.png" alt="logo" /></a>
                 <ul className="nav" role="tablist">
                     <li><a href="#conversations" className="active" data-toggle="tab" role="tab"
                             aria-controls="conversations" aria-selected="true"><i className="awesome fas fa-2x fa-comment"></i></a></li>
@@ -72,7 +72,7 @@ function HomePage(props) {
                         </button>
                     </li>
                     <li>
-                        <button type="button" className="btn"><img src="asset/images/avatar-male-1.jpg"
+                        <button type="button" className="btn"><img src={context.user.avatar}
                                 alt="avatar" /><i data-eva="radio-button-on" /></button>
                     </li>
                 </ul>
@@ -102,7 +102,7 @@ function HomePage(props) {
         {/* Start of Chat */}
         <div className="chat open">
             <div className="tab-content">
-                <Chat user = {context.user} />
+                <Chat/>
             </div>
         </div>
         {/* End of Chat */}

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Register from './Components/Register/Register';
 import Signin from './Components/SignIn/SignIn'
 import AppContext from './Context/Context';
-import {getUser,logout,setUserCookies} from './Helper/auth';
+import {getUser, setUserCookies} from './Helper/auth';
 import HomePage from './HomePage';
 
 
@@ -16,7 +16,7 @@ const App = () => {
         avatar: userCookies ? userCookies.avatar : null,
         userid: userCookies ? userCookies.userid : null
     })
-    const host = "http://192.168.1.2:8000";
+    const host = "http://192.168.1.4:8000";
 
     const changeUser = (state) =>{
         setUserCookies(state.email, state.username, state.fullname, state.avatar,state.userid);

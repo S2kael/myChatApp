@@ -14,7 +14,7 @@ class WebSocketService {
     }
 
     connect(room) {
-        const path = 'ws://192.168.1.2:8000/ws/chat/'+room+'/';
+        const path = 'ws://192.168.1.4:8000/ws/chat/'+room+'/';
         this.socketRef = new WebSocket(path);
         this.socketRef.onopen = () => {
             console.log('WebSocket open');
@@ -39,10 +39,15 @@ class WebSocketService {
 
     socketNewMessage(data) {
         const parsedData = JSON.parse(data);
+        
         if (Object.keys(this.callbacks).length === 0) {
             return;
         }
-        this.callbacks['new_message'](parsedData.message);
+        if (parsedData.ready){
+            this.callbacks['status_ready']();
+        } else{
+            this.callbacks['new_message'](parsedData.message);
+        }
     }
 
     fetchMessages(group) {
@@ -62,8 +67,9 @@ class WebSocketService {
         });
     }
 
-    addCallbacks(newMessageCallback) {
+    addCallbacks(newMessageCallback,statusReady) {
         this.callbacks['new_message'] = newMessageCallback;
+        this.callbacks['status_ready'] = statusReady;
     }
 
     sendMessage(data) {

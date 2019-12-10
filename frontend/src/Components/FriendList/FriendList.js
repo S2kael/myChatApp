@@ -12,7 +12,7 @@ function FriendList(){
             <div className="middle">
                 <h4>Friends</h4>
                 <button type="button" className="btn" data-toggle="modal" data-target="#addfriend">
-                    <i class="fas fa-user-plus"></i>
+                    <i className="fas fa-user-plus"></i>
                 </button>
                 <hr />
                 <ul className="users">

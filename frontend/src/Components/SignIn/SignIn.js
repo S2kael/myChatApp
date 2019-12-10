@@ -1,13 +1,11 @@
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import React, {useState,useContext} from 'react'
+import { Form, Icon, Input, Button, Checkbox, notification } from 'antd';
+import React, {useContext} from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import AppContext from '../../Context/Context'
 
 const NormalLoginForm = (props) => {
     const context = useContext(AppContext);
-    const [message, setMessage] = useState('')
-
     const submitLogin = (value) => {
         context.changeUser({
             username: value.username,
@@ -29,10 +27,21 @@ const NormalLoginForm = (props) => {
             axios.post(`${context.host}/api/signin/`, values)
             .then(res => {
                 if (res.data.success) {
+                    notification.config({
+                        duration: 1
+                    });
+                    notification['success']({
+                        message: res.data.message,
+                    });
                     submitLogin(res.data)
                     props.history.push('/')
                 } else {
-                    setMessage(res.data.message)
+                    notification.config({
+                        duration: 1
+                    });
+                    notification['error']({
+                        message: res.data.message,
+                    });
                 }
             })
         }
@@ -74,7 +83,7 @@ const NormalLoginForm = (props) => {
                 <Button type="primary" htmlType="submit" className="login-form-button">
                     Log in
                 </Button>
-                Or <a href="/register">register now!</a>
+                Or <a className="login-register" href="/register">register now!</a>
                 </Form.Item>
             </Form>
         </div>

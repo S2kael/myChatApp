@@ -116,17 +116,12 @@ def getListUser():
             "fullname": user.fullname
         }
         tmp = {str(user.userid): detail}
-
         result.update(tmp)
     return result
 
 class UserView(ListAPIView):
     def post(self, request):
         result = getListUser()
-        userid = request.data['userid']
-        # res = User.getUser(userid)
-        res = json.dumps(result)
-        print(result[userid])
         return HttpResponse(json.dumps(result))
 
 class SignInView(ListAPIView):
@@ -149,4 +144,16 @@ class RegisterView(ListAPIView):
         avatar = avatars[index]
         avatar = "/asset/images/" + avatar
         res = User.createUser(email=email, username=username, password=password, fullname=fullname, avatar=avatar)
+        return HttpResponse(json.dumps(res))
+
+class SearchFriend(ListAPIView):
+    def post(self, request):
+        data = request.data
+        res = User.searchUser(data=data['search'], type=data['type'])
+        # user = User.objects.filter(email=data['search'])
+        # res = dict({
+        #     'success': True,
+        #     'message': "Email exists",
+        #     'email': user[0].email
+        # })
         return HttpResponse(json.dumps(res))

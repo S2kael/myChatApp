@@ -141,6 +141,11 @@ input[type="search"]::-webkit-search-cancel-button {
     color: white;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: #007bff !important;
+}
+
 
 .sidebar {
     background: #2e2d31
@@ -258,7 +263,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .chat {
-    background: #2f2e32
+    background: #2f2e32;
 }
 
 .chat .item .top {
@@ -373,7 +378,12 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal-body .nav {
-    background: #38373a
+    background: #2f2e32;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #38373a;
+    opacity: 1;
 }
 
 .modal-body .nav li .active {

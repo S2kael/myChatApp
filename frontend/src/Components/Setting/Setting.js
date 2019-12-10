@@ -1,17 +1,20 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import {logout} from '../../Helper/auth'
+import AppContext from '../../Context/Context';
+
 
 function Setting() {
+    const context = useContext(AppContext);
     return (
         <div>
             <div className="user">
                 <label>
-                    <input type="file" />
-                    <img src="asset/images/avatar-male-1.jpg" alt="avatar" />
+                    <input type="file" accept= "image/*"/>
+                    <img src={context.user.avatar} alt="avatar" />
                 </label>
                 <div className="content">
-                    <h5>Ham Chuwon</h5>
-                    <span>Florida, US</span>
+                    <h5>{context.user.username}</h5>
+                    <span>{context.user.fullname}</span>
                 </div>
             </div>
             <h4>Settings</h4>
@@ -22,48 +25,40 @@ function Setting() {
                         aria-controls="account">
                         <div className="title">
                             <h5>Account</h5>
-                            <p>Update your profile details</p>
                         </div>
-                        <i data-eva="arrow-ios-forward" />
-                        <i data-eva="arrow-ios-downward" />
                     </a>
                     <div className="content collapse" id="account" data-parent="#preferences">
+                        <p>Update your profile details</p>
                         <div className="inside">
                             <form className="account">
-                                <div className="form-row">
-                                    <div className="col-sm-6">
-                                        <div className="form-group">
-                                            <label>First Name</label>
-                                            <input type="text" className="form-control" placeholder="First name"
-                                                defaultValue="Ham" />
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="form-group">
-                                            <label>Last Name</label>
-                                            <input type="text" className="form-control" placeholder="Last name"
-                                                defaultValue="Chuwon" />
-                                        </div>
-                                    </div>
+                                <div className="form-group">
+                                    <label>User Name</label>
+                                    <input type="text" className="form-control" placeholder="First name"
+                                        defaultValue={context.user.username} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" className="form-control" placeholder="First name"
+                                        defaultValue={context.user.fullname} />
                                 </div>
                                 <div className="form-group">
                                     <label>Email Address</label>
-                                    <input type="email" className="form-control" placeholder="Enter your email address"
-                                        defaultValue="hamchuwon@gmail.com" />
+                                    <input type="email" disabled className="form-control" placeholder="Enter your email address"
+                                        defaultValue={context.user.email} />
                                 </div>
                                 <div className="form-group">
-                                    <label>Password</label>
+                                    <label>New Password</label>
                                     <input type="password" className="form-control" placeholder="Enter your password"
                                         defaultValue={123456} />
                                 </div>
                                 <div className="form-group">
-                                    <label>Biography</label>
-                                    <textarea className="form-control" placeholder="Tell us a little about yourself"
-                                        defaultValue={""} />
-                                    </div>
-                        <button type="submit" className="btn primary">Save settings</button>
-                        </form>
-                    </div>
+                                    <label>Password Confirm</label>
+                                    <input type="password" className="form-control" placeholder="ReEnter your new password"
+                                        defaultValue={123456} />
+                                </div>
+                                <button type="submit" className="btn primary">Save settings</button>
+                            </form>
+                        </div>
                     </div>
                 </li>
                 {/* End of Account */}

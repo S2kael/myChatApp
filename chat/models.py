@@ -95,7 +95,7 @@ class User(DjangoCassandraModel):
             else:
                 return dict({
                     'success': True,
-                    'message': "Login Success",
+                    'message': "Register Success",
                     'email': user[0]['email'],
                     'userid': str(user[0]['userid']),
                     'username': user[0]['username'],
@@ -129,3 +129,31 @@ class User(DjangoCassandraModel):
                     'message': "Register confirm",
                     'email': email
                 })
+
+    @staticmethod
+    def searchUser(data, type):
+        if type == 1:
+            users = User.objects.filter(email=data)
+        else:
+            data = "%" + data + "%"
+            users = User.objects.filter(username__like=data)
+        if len(users) == 0:
+            return dict({
+                'success': False,
+                'message': "Don't exists user"
+            })
+        else:
+            result = {}
+            for user in users:
+                detail = {
+                    "username": user.username,
+                    "email": user.email,
+                    "avatar": user.avatar,
+                    "fullname": user.fullname
+                }
+                tmp = {str(user.userid): detail}
+                result.update(tmp)
+            return dict({
+                'success': True,
+                'result': result
+            })

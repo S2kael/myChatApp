@@ -1,38 +1,56 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import WebSocketInstance from '../../WebSocket';
 import axios from 'axios';
 import Message from '../Message/Message';
 import AppContext from '../../Context/Context';
 
-const Chat = (props) => {
+const Chat = () => {
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
-    WebSocketInstance.connect('public');
-    waitForSocketConnection(() => {
-        WebSocketInstance.addCallbacks(addMessage)
-    });
+    const [data, setData] = useState([])
+    const [ready, setReady] = useState(false);
+
+    
     const context = useContext(AppContext);
-    const waitForSocketConnection = (callback) => {
-        const component = this;
+
+    function waitForSocketConnection(callback){
         setTimeout(
             function () {
-            if (WebSocketInstance.state() === 1) {
-                console.log("Connection is made")
-                callback('public');
-                return;
-            } else {
-                console.log("wait for connection...")
-                component.waitForSocketConnection(callback);
-            }
-        }, 10);
+                if (WebSocketInstance.state() === 1) {
+                    console.log("Connection is made")
+                    callback('public');
+                    return;
+                } else {
+                    console.log("wait for connection...")
+                    waitForSocketConnection(callback);
+                }
+        },10);
     }
 
-    const addMessage = (message) => {
-        setMessages([...messages, message])
+    useEffect(() => {
+        WebSocketInstance.connect('public');
+        waitForSocketConnection(() => {
+            WebSocketInstance.addCallbacks(addMessage,statusReady);
+        });
+        axios.post(`${context.host}/api/user/`)
+            .then(res=>{
+                setData(res.data);
+            });
+    }, []);
+    
+
+    function addMessage(message){
+        let tmp = messages;
+        tmp.push(message)
+        setMessages([...tmp]);
     }
 
-    const shiftKey=false;
-    const backspace = false;
+    function statusReady(){
+        setReady(true);
+    }
+
+    let shiftKey = false;
+    let backspace = false;
 
     const messageOnKeyPressHandler = (event) =>{
         if (event.shiftKey) {
@@ -50,10 +68,10 @@ const Chat = (props) => {
     }
 
     const messageOnKeyUpHandler = (event) =>{
-        if(event.key == "Backspace" || event.which === 8  ){
-            this.backspace=true;
+        if(event.key === "Backspace" || event.which === 8  ){
+            backspace=true;
         }else{
-            this.backspace=false;
+            backspace=false;
         }
     }
     
@@ -63,7 +81,7 @@ const Chat = (props) => {
         if (shiftKey){
             setMessage(value)
         }else{
-            if(this.backspace){
+            if(backspace){
                 setMessage(value)
             }else{
                 if(value[value.length-1] !== '\n'){
@@ -77,26 +95,31 @@ const Chat = (props) => {
         const messageObject = {
             group: "public",
             content: message,
-            author: props.user.userid
+            author: context.user.userid
         };
         WebSocketInstance.newChatMessage(messageObject);
         setMessage('')
     }
-
-    let data;
     const renderMessages = (messages) => {
-        // axios.post(`${this.context.host}/api/user/`)
-        //     .then(res=>{
-        //         this.data = JSON.parse(res)
-        //     })
         let listMessages = [];
         messages.map((message, i) => {
             if (message.author !== ''){
-                listMessages.push(<Message key = {i} timestamp = {message.created_at} currentUser = {props.user.userid} author = {message.author} contents = {message.content}/>)
+                listMessages.push(
+                    <Message key = {i} 
+                        timestamp = {message.created_at}
+                        currentUser = {context.user.userid}
+                        avatar = {data[message.author].avatar}
+                        username = {data[message.author].username}
+                        author = {message.author} 
+                        contents = {message.content}
+                    />
+                )
             }
         });
         return listMessages;
     }
+
+    
 
     return (
         <div className="tab-pane fade show active" id="chat1" role="tabpanel">
@@ -286,10 +309,17 @@ const Chat = (props) => {
                             </ul>
                         </div>
                     </div>
-                    <div className="middle" id="scroll">
-                        <div className="container">
+                    <div className="middle" id="scroll" style={{position: "relative"}}>
+                        <div className="container" >
                             <ul id="messages">
-                                {renderMessages(messages)}
+                                {   ready ? 
+                                        renderMessages(messages) : 
+                                        (
+                                            <div className="spinner-border text-primary" style={{position: "absolute", top: "50%", right: "50%"}}  role="status">
+                                                <span className="sr-only">Loading...</span>
+                                            </div>
+                                        )
+                                }
                             </ul>
                         </div>
                     </div>
@@ -297,7 +327,7 @@ const Chat = (props) => {
                         <div className="bottom">
                             <div className="form">
                                 <textarea className="form-control" id="chat-message-input" placeholder="Type message..."
-                                    rows={1} defaultValue={""} value = {message} onChange = {messageChangeHandler} onKeyUp={messageOnKeyUpHandler} onKeyPress={messageOnKeyPressHandler} />
+                                    rows={1} value = {message} onChange = {messageChangeHandler} onKeyUp={messageOnKeyUpHandler} onKeyPress={messageOnKeyPressHandler} />
                                 <button type="button" className="btn prepend" onClick={sendMessageHandler} id="chat-message-submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="eva eva-paper-plane">
                                         <g data-name="Layer 2">

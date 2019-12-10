@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react' 
-import { Form, Icon, Input, Button, Checkbox, Alert, notification} from 'antd';
+import { Form, Icon, Input, Button, notification} from 'antd';
 import { withRouter } from 'react-router-dom';
 import AppContext from '../../Context/Context';
 import axios from 'axios';
@@ -10,7 +10,6 @@ const RegisterWrap = (props) => {
     //     props.history.push('/')
     // }
     const [confirmDirty, setConfirmDirty] = useState(false)
-    const [message, setMessage] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault();
         props.form.validateFields((err, values) => {
@@ -23,7 +22,12 @@ const RegisterWrap = (props) => {
                         });
                         props.history.push('/signin')
                     } else {
-                        setMessage(res.data.message)
+                        notification.config({
+                            duration: 1
+                        });
+                        notification['error']({
+                            message: res.data.message,
+                        });
                     }
                 })
             }
@@ -54,7 +58,6 @@ const RegisterWrap = (props) => {
     return (
         <div className="login-wrap">
             <Form onSubmit={handleSubmit} className="login-form">
-            {message && <Alert style={{marginBottom: '20px'}} message={message} type="error"/>}
                 <Form.Item>
                     {getFieldDecorator('fullname', {
                         rules: [{ required: true, message: 'Please input your username!' }],

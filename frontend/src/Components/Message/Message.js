@@ -1,26 +1,6 @@
-import React, {useState,useContext} from 'react';
-import axios from 'axios';
-import AppContext from '../../Context/Context';
+import React from 'react';
 
 function Message(props){
-    const context = useContext(AppContext);
-    const [avatar,setAvatar] = useState("asset/images/avatar-male-3.jpg");
-    const [userid,setUserid] = useState(props.author);
-    const [username,setUsername] = useState(props.author);
-
-    function getUser(userid){
-        let values = {
-            userid: userid
-        }
-        axios.post(`${context.host}/api/user/`, values)
-            .then(res => {
-                if (res.data[userid]) {
-                    setAvatar(res.data[userid].avatar);
-                    setUserid(res.data[userid].userid);
-                    setUsername(res.data[userid].username);
-                }
-            })
-    }
 
     function renderTime(timestamp) {
         let prefix = "";
@@ -49,12 +29,10 @@ function Message(props){
         return listMessages;
     }
 
-    getUser(props.author);
-
 
     return (
-        <li className =  {props.currentUser === userid ? '' :"arrive"}>
-            <img src={avatar} alt="avatar" title={username} />
+        <li className =  {props.currentUser === props.author ? '' :"arrive"}>
+            <img src={props.avatar} alt="avatar" title={props.username} />
             <div className="content">
                 <div className="message">
                     <div className="bubble">

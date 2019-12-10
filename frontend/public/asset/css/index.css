@@ -420,3 +420,11 @@ html {
 .login-form-button {
     width: 100%;
   }
+
+.login-register{
+    color: #096cd8;
+}
+
+.ant-alert-message {
+    vertical-align: -webkit-baseline-middle;
+}
